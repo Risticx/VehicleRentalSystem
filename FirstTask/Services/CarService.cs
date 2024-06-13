@@ -10,7 +10,11 @@ namespace VehicleRentalSystem.Services
 {
     public class CarService : IVehicleService
     {
-        public decimal CalculateInsuranceCost(Vehicle vehicle, int days)
+        public decimal CalculateBaseInsuranceCost(Vehicle vehicle, int days)
+        {
+            return days * vehicle.Value * 0.01m / 100;
+        }
+        public decimal CalculateAdditionalInsuranceCost(Vehicle vehicle, int days)
         {
             Car car = (Car)vehicle;
             try
@@ -22,9 +26,8 @@ namespace VehicleRentalSystem.Services
             {
                 Console.WriteLine(e.Message);
             }
-            decimal Cost = days * car.Value * 0.01m;
-
-            return car.SafetyRating < 4 ? Cost : Cost * 0.9m;
+            decimal Cost = CalculateBaseInsuranceCost(vehicle, days);
+            return car.SafetyRating < 4 ? -1 : Cost * 0.9m;
         }
 
         public decimal CalculateRentalCost(Vehicle vehicle, int days)

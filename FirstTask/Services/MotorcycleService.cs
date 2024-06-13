@@ -9,12 +9,17 @@ namespace VehicleRentalSystem.Services
 {
     public class MotorcycleService : IVehicleService
     {
-        public decimal CalculateInsuranceCost(Vehicle vehicle, int days)
+        public decimal CalculateBaseInsuranceCost(Vehicle vehicle, int days)
+        {
+            return days * vehicle.Value * 0.02m / 100;
+        }
+
+        public decimal CalculateAdditionalInsuranceCost(Vehicle vehicle, int days)
         {
             Motorcycle motorcycle = (Motorcycle)vehicle;
-            decimal Cost = days * motorcycle.Value * 0.02m;
+            decimal Cost = CalculateBaseInsuranceCost(vehicle, days);
 
-            return motorcycle.RiderAge >= 25 ? Cost : Cost * 1.2m;
+            return motorcycle.RiderAge >= 25 ? -1 : Cost * 1.2m;
         }
 
         public decimal CalculateRentalCost(Vehicle vehicle, int days)
