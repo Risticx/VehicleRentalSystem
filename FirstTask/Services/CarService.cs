@@ -27,7 +27,7 @@ namespace VehicleRentalSystem.Services
                 Console.WriteLine(e.Message);
             }
             decimal Cost = CalculateBaseInsuranceCost(vehicle, days);
-            return car.SafetyRating < 4 ? -1 : Cost * 0.9m;
+            return car.SafetyRating < 4 ? Cost : Cost * 0.9m;
         }
 
         public decimal CalculateRentalCost(Vehicle vehicle, int days)

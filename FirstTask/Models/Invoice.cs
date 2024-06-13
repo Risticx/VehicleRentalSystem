@@ -23,15 +23,15 @@ namespace VehicleRentalSystem.Models
             decimal earlyInsuranceDiscount = 0;
 
             if (Rental.Vehicle is Car car)
-                Console.WriteLine($"A car that is valued at ${Math.Round(Rental.Vehicle.Value, 2)}," +
+                Console.WriteLine($"A car that is valued at ${Rental.Vehicle.Value:#,0.00}," +
                 $" and has a security rating of {car.SafetyRating}:");
 
             if (Rental.Vehicle is Motorcycle motorcycle)
-                Console.WriteLine($"A motorcycle valued at ${Math.Round(Rental.Vehicle.Value, 2)}," +
+                Console.WriteLine($"A motorcycle valued at ${Rental.Vehicle.Value:#,0.00}," +
                 $" and the driver is {motorcycle.RiderAge} years old");
 
             if (Rental.Vehicle is CargoVan cargoVan)
-                Console.WriteLine($"A cargo van valued at ${Math.Round(Rental.Vehicle.Value, 2)}," +
+                Console.WriteLine($"A cargo van valued at ${Rental.Vehicle.Value:#,0.00}," +
                 $" and the driver has {cargoVan.DriverExperience} years of driving experience");
 
             Console.WriteLine();
@@ -61,17 +61,19 @@ namespace VehicleRentalSystem.Models
 
             Console.WriteLine($"Rental cost per day: ${rentalCostPerDay:0.00}");
 
-            if(AdditionalInsuranceCost == -1) 
+
+            decimal insuranceDifference = baseInsuranceCostPerDay - additionInsuranceCostPerDay;
+
+            if (insuranceDifference == 0 ) 
                 Console.WriteLine($"Insurance per day: ${resultInsuranceCostPerDay = baseInsuranceCostPerDay:0.00}");
 
-            if (AdditionalInsuranceCost != -1)
-            {
-                Console.WriteLine($"Initial insurance per day: ${baseInsuranceCostPerDay:0.00}");
+            else { 
 
-                decimal insuranceDifference = baseInsuranceCostPerDay - additionInsuranceCostPerDay;
+                Console.WriteLine($"Initial insurance per day: ${baseInsuranceCostPerDay:0.00}");
+                
                 if (insuranceDifference > 0)
                 {
-                    Console.WriteLine($"Insurance discound per day: ${insuranceDifference:0.00}");
+                    Console.WriteLine($"Insurance discount per day: ${insuranceDifference:0.00}");
                     Console.WriteLine($"Insurance per day: ${resultInsuranceCostPerDay = additionInsuranceCostPerDay:0.00}");
                 }
                 if (insuranceDifference < 0)
@@ -79,11 +81,13 @@ namespace VehicleRentalSystem.Models
                     Console.WriteLine($"Insurance addition per day: ${Math.Abs(insuranceDifference):0.00}");
                     Console.WriteLine($"Insurance per day: ${resultInsuranceCostPerDay = additionInsuranceCostPerDay:0.00}");
                 }
-
+                
             }
 
             if (Rental.ReturnDate != null) 
             {
+                Console.WriteLine();
+
                 earlyRentDiscount = rentalCostPerDay * Rental.GetDaysLeft() * 0.5m;
                 Console.WriteLine($"Early return discount for rent: ${earlyRentDiscount:0.00}");
                 earlyInsuranceDiscount = resultInsuranceCostPerDay * Rental.GetDaysLeft();

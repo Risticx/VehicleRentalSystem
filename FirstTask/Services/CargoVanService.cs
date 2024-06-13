@@ -19,7 +19,7 @@ namespace VehicleRentalSystem.Services
             CargoVan cargoVan = (CargoVan)vehicle;
             decimal Cost = CalculateBaseInsuranceCost(vehicle, days);
 
-            return cargoVan.DriverExperience <= 5 ? -1 : Cost * 0.85m;
+            return cargoVan.DriverExperience <= 5 ? Cost : Cost * 0.85m;
         }
 
         public decimal CalculateRentalCost(Vehicle vehicle, int days)

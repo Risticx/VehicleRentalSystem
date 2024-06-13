@@ -19,7 +19,7 @@ namespace VehicleRentalSystem.Services
             Motorcycle motorcycle = (Motorcycle)vehicle;
             decimal Cost = CalculateBaseInsuranceCost(vehicle, days);
 
-            return motorcycle.RiderAge >= 25 ? -1 : Cost * 1.2m;
+            return motorcycle.RiderAge >= 25 ? Cost : Cost * 1.2m;
         }
 
         public decimal CalculateRentalCost(Vehicle vehicle, int days)
