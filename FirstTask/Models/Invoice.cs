@@ -37,7 +37,7 @@ namespace VehicleRentalSystem.Models
             Console.WriteLine();
             Console.WriteLine("XXXXXXXXXX");
             Console.WriteLine($"Date: {DateTime.Now.ToString("yyyy-MM-dd")}");
-            Console.WriteLine($"Customer Name:");
+            Console.WriteLine($"Customer Name: {Rental.CustomerName}");
             Console.WriteLine($"Rented Vehicle: {Rental.Vehicle.Brand + " " + Rental.Vehicle.Model}");
             Console.WriteLine();
 
@@ -81,8 +81,6 @@ namespace VehicleRentalSystem.Models
                 }
 
             }
-
-            Console.WriteLine();
 
             if (Rental.ReturnDate != null) 
             {

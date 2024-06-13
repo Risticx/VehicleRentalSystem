@@ -8,6 +8,6 @@ Vehicle vehicle = new CargoVan { Brand = "Citroen", Model = "Jumper", Value = 20
 
 IRentalService rentalService = new RentalService();
 
-Rental rental = rentalService.CreateRental(vehicle, DateTime.Now.AddDays(-10), DateTime.Now.AddDays(5));
-rental.ReturnDate = DateTime.Now;
+Rental rental = rentalService.CreateRental(vehicle, "John Markson", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(5));
+//rental.ReturnDate = DateTime.Now;
 rentalService.CalculateTotalCost(rental);

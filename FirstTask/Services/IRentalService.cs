@@ -9,7 +9,7 @@ namespace VehicleRentalSystem.Services
 {
     public interface IRentalService
     {
-        public Rental CreateRental(Vehicle vehicle, DateTime startDate, DateTime endDate);
+        public Rental CreateRental(Vehicle vehicle, string customerName, DateTime startDate, DateTime endDate);
 
         public void CalculateTotalCost(Rental rental);
 

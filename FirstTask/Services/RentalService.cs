@@ -19,9 +19,9 @@ namespace VehicleRentalSystem.Services
             _motorcycleService = new MotorcycleService();
             _cargoVanService = new CargoVanService();
         }
-        public Rental CreateRental(Vehicle vehicle, DateTime startDate, DateTime endDate)
+        public Rental CreateRental(Vehicle vehicle, string customerName, DateTime startDate, DateTime endDate)
         {
-            return new Rental { Vehicle = vehicle, StartDate = startDate, EndDate = endDate };
+            return new Rental { Vehicle = vehicle, CustomerName = customerName, StartDate = startDate, EndDate = endDate };
         }
         public void CalculateTotalCost(Rental rental)
         {
