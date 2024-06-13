@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VehicleRentalSystem.Models;
+﻿using VehicleRentalSystem.Models;
 
 namespace VehicleRentalSystem.Services
 {
@@ -19,9 +14,19 @@ namespace VehicleRentalSystem.Services
             _motorcycleService = new MotorcycleService();
             _cargoVanService = new CargoVanService();
         }
-        public Rental CreateRental(Vehicle vehicle, string customerName, DateTime startDate, DateTime endDate)
+        public Rental CreateRental(Vehicle vehicle, string customerName, DateTime startDate, DateTime endDate, DateTime? returnDate)
         {
-            return new Rental { Vehicle = vehicle, CustomerName = customerName, StartDate = startDate, EndDate = endDate };
+            if (startDate >= endDate)
+            {
+                throw new ArgumentException("Start date must be before end date!");
+            }
+
+            if (returnDate.HasValue && (returnDate.Value < startDate || returnDate.Value > endDate))
+            {
+                throw new ArgumentException("Return date must be between start and end dates!");
+            }
+
+            return new Rental { Vehicle = vehicle, CustomerName = customerName, StartDate = startDate, EndDate = endDate , ReturnDate = returnDate};
         }
         public void CalculateTotalCost(Rental rental)
         {

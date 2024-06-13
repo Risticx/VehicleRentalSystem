@@ -1,9 +1,5 @@
 ﻿using VehicleRentalSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VehicleRentalSystem.Exceptions;
 
 namespace VehicleRentalSystem.Services
 {
@@ -11,6 +7,12 @@ namespace VehicleRentalSystem.Services
     {
         public decimal CalculateBaseInsuranceCost(Vehicle vehicle, int days)
         {
+
+            Motorcycle motorcycle = (Motorcycle)vehicle;
+
+            if (motorcycle.RiderAge < 0 || motorcycle.RiderAge > 100)
+                throw new SafetyRatingException("Rider age value not acceptable!");
+
             return days * vehicle.Value * 0.02m / 100;
         }
 

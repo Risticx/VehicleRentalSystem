@@ -1,9 +1,5 @@
 ﻿using VehicleRentalSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VehicleRentalSystem.Exceptions;
 
 namespace VehicleRentalSystem.Services
 {
@@ -11,6 +7,12 @@ namespace VehicleRentalSystem.Services
     {
         public decimal CalculateBaseInsuranceCost(Vehicle vehicle, int days)
         {
+
+            CargoVan cargoVan = (CargoVan)vehicle;
+
+            if (cargoVan.DriverExperience < 0)
+                throw new SafetyRatingException("Driver experience must be positive value!");
+
             return days * vehicle.Value * 0.03m / 100;
         }
 
