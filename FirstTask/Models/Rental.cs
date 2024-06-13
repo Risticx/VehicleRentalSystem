@@ -13,7 +13,6 @@ namespace VehicleRentalSystem.Models
         public DateTime EndDate { get; set; }
         public DateTime? ReturnDate { get; set; }
 
-
         public int GetRentalDays()
         {
             return (int)(EndDate - StartDate).TotalDays;

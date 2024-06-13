@@ -28,14 +28,10 @@ namespace VehicleRentalSystem.Services
             IVehicleService vehicleService = GetVehicleService(rental.Vehicle);
 
             int rentalDays = rental.GetRentalDays();
-            int daysLeft = rental.GetDaysLeft();
-
 
             decimal rentalCost = vehicleService.CalculateRentalCost(rental.Vehicle, rentalDays);
-            decimal remainingDaysCost = Math.Round(vehicleService.CalculateRentalCost(rental.Vehicle, daysLeft) * 0.5m, 2);
             decimal baseInsuranceCost = vehicleService.CalculateBaseInsuranceCost(rental.Vehicle, rentalDays);
             decimal additionalInsuranceCost = vehicleService.CalculateAdditionalInsuranceCost(rental.Vehicle, rentalDays);
-
 
             Invoice invoice = new Invoice { Rental = rental, RentalCost = rentalCost, BaseInsuranceCost = baseInsuranceCost, AdditionalInsuranceCost = additionalInsuranceCost };
             invoice.PrintInvoice();
@@ -43,7 +39,6 @@ namespace VehicleRentalSystem.Services
 
         public IVehicleService GetVehicleService(Vehicle vehicle)
         {
-            
             if (vehicle is Car)
             {
                 return _carService;

@@ -7,12 +7,10 @@ namespace VehicleRentalSystem.Exceptions
     {
         public SafetyRatingException()
         {
-            
         }
 
         public SafetyRatingException(string? message) : base(message)
-        {
-            
+        {   
         }
 
         public SafetyRatingException(string? message, Exception? innerException) : base(message, innerException)

@@ -11,14 +11,13 @@ namespace VehicleRentalSystem.Models
         public Rental Rental { get; set; }
         public decimal RentalCost { get; set; }
         public decimal BaseInsuranceCost { get; set; }
-
         public decimal AdditionalInsuranceCost { get; set; }
 
         public void PrintInvoice()
         {
-            decimal rentalCostPerDay = Math.Round(RentalCost / Rental.GetRentalDays(), 2);
-            decimal baseInsuranceCostPerDay = Math.Round(BaseInsuranceCost / Rental.GetRentalDays(), 2);
-            decimal additionInsuranceCostPerDay = Math.Round(AdditionalInsuranceCost / Rental.GetRentalDays(), 2);
+            decimal rentalCostPerDay = RentalCost / Rental.GetRentalDays();
+            decimal baseInsuranceCostPerDay = BaseInsuranceCost / Rental.GetRentalDays();
+            decimal additionInsuranceCostPerDay = AdditionalInsuranceCost / Rental.GetRentalDays();
             decimal resultInsuranceCostPerDay = 0;
             decimal earlyRentDiscount = 0;
             decimal earlyInsuranceDiscount = 0;
@@ -57,44 +56,48 @@ namespace VehicleRentalSystem.Models
                 Console.WriteLine($"Actual return date: {Rental.ReturnDate?.ToString("yyyy-MM-dd")}");
                 Console.WriteLine($"Actual rental days: {Rental.GetActualRentalDays()} days");
             }
+
             Console.WriteLine();
 
-            Console.WriteLine($"Rental cost per day: ${rentalCostPerDay}");
+            Console.WriteLine($"Rental cost per day: ${rentalCostPerDay:0.00}");
+
             if(AdditionalInsuranceCost == -1) 
-                Console.WriteLine($"Insurance per day: ${resultInsuranceCostPerDay = baseInsuranceCostPerDay}");
+                Console.WriteLine($"Insurance per day: ${resultInsuranceCostPerDay = baseInsuranceCostPerDay:0.00}");
+
             if (AdditionalInsuranceCost != -1)
             {
-                Console.WriteLine($"Initial insurance per day: ${baseInsuranceCostPerDay}");
+                Console.WriteLine($"Initial insurance per day: ${baseInsuranceCostPerDay:0.00}");
 
                 decimal insuranceDifference = baseInsuranceCostPerDay - additionInsuranceCostPerDay;
                 if (insuranceDifference > 0)
                 {
-                    Console.WriteLine($"Insurance discound per day: ${insuranceDifference}");
-                    Console.WriteLine($"Insurance per day: ${resultInsuranceCostPerDay = additionInsuranceCostPerDay}");
+                    Console.WriteLine($"Insurance discound per day: ${insuranceDifference:0.00}");
+                    Console.WriteLine($"Insurance per day: ${resultInsuranceCostPerDay = additionInsuranceCostPerDay:0.00}");
                 }
                 if (insuranceDifference < 0)
                 {
-                    Console.WriteLine($"Insurance addition per day: ${Math.Abs(insuranceDifference)}");
-                    Console.WriteLine($"Insurance per day: ${resultInsuranceCostPerDay = additionInsuranceCostPerDay}");
+                    Console.WriteLine($"Insurance addition per day: ${Math.Abs(insuranceDifference):0.00}");
+                    Console.WriteLine($"Insurance per day: ${resultInsuranceCostPerDay = additionInsuranceCostPerDay:0.00}");
                 }
 
             }
-            Console.WriteLine();
 
+            Console.WriteLine();
 
             if (Rental.ReturnDate != null) 
             {
                 earlyRentDiscount = rentalCostPerDay * Rental.GetDaysLeft() * 0.5m;
-                Console.WriteLine($"Early return discount for rent: ${Math.Round(earlyRentDiscount, 2)}");
+                Console.WriteLine($"Early return discount for rent: ${earlyRentDiscount:0.00}");
                 earlyInsuranceDiscount = resultInsuranceCostPerDay * Rental.GetDaysLeft();
-                Console.WriteLine($"Early return discount for insurance: ${Math.Round(earlyInsuranceDiscount, 2)}");
+                Console.WriteLine($"Early return discount for insurance: ${earlyInsuranceDiscount:0.00}");
 
             }
+
             Console.WriteLine();
 
-            Console.WriteLine($"Total rent: ${Math.Round(RentalCost - earlyRentDiscount, 2)}");
-            Console.WriteLine($"Total insurance: ${Math.Round(AdditionalInsuranceCost - earlyInsuranceDiscount, 2)}");
-            Console.WriteLine($"Total: ${Math.Round(RentalCost - earlyRentDiscount + AdditionalInsuranceCost - earlyInsuranceDiscount,2)}");
+            Console.WriteLine($"Total rent: ${(RentalCost - earlyRentDiscount):0.00}");
+            Console.WriteLine($"Total insurance: ${(AdditionalInsuranceCost - earlyInsuranceDiscount):0.00}");
+            Console.WriteLine($"Total: ${(RentalCost - earlyRentDiscount + AdditionalInsuranceCost - earlyInsuranceDiscount):0.00}");
             Console.WriteLine("XXXXXXXXXX");
         }
     }
